@@ -37,7 +37,6 @@ var fs   = require('fs'),
     glob = require('glob'),
     plist = require('plist-with-patches'),
     bplist = require('bplist-parser'),
-    xcode = require('xcode'),
     et   = require('elementtree'),
     xml_helpers = require('./../util/xml-helpers'),
     platforms = require('./../platforms'),
@@ -491,8 +490,7 @@ function ConfigFile_load() {
         self.data = xml_helpers.parseElementtreeSync(filepath);
     } else if (ext == '.pbxproj') {
         self.type = 'pbxproj';
-        self.data = xcode.project(filepath);
-        self.data.parseSync();
+        self.data = platforms.ios.parseProjectFile(self.project_dir).xcode;
     } else {
         // plist file
         self.type = 'plist';
