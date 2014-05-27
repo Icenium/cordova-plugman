@@ -6,6 +6,7 @@ var android = require('../../src/platforms/android'),
     shell   = require('shelljs'),
     et      = require('elementtree'),
     os      = require('osenv'),
+    _       = require('underscore'),
     temp    = path.join(os.tmpdir(), 'plugman'),
     plugins_dir = path.join(temp, 'cordova', 'plugins'),
     xml_helpers = require('../../src/util/xml-helpers'),
@@ -111,6 +112,34 @@ describe('android project handler', function() {
                 expect(function() {
                     android['source-file'].install(source[0], dummyplugin, temp);
                 }).toThrow('"' + target + '" already exists!');
+            });
+        });
+        describe('of <framework> elements', function() {
+            it('should update the main and library projects', function() {
+                var frameworkElement = { attrib: { src: "LibraryPath" } };
+                var sub_dir = path.resolve(temp, frameworkElement.attrib.src);
+                var mainProjectProps = path.resolve(temp, "project.properties");
+                var subProjectProps = path.resolve(sub_dir, "project.properties");
+                var existsSync = spyOn( fs, 'existsSync').andReturn(true);
+                var writeFileSync = spyOn(fs, 'writeFileSync');
+                var readFileSync = spyOn(fs, 'readFileSync').andCallFake(function (file) {
+                    if (path.normalize(file) === mainProjectProps) {
+                        return '#Some comment\ntarget=android-19\nandroid.library.reference.1=ExistingLibRef1\nandroid.library.reference.2=ExistingLibRef2\n';
+                    } else if (path.normalize(file) === subProjectProps) {
+                        return '#Some comment\ntarget=android-17\nandroid.library=true\n';
+                    }
+                })
+                var exec = spyOn(shell, 'exec');
+
+                android['framework'].install(frameworkElement, dummyplugin, temp);
+
+                expect(_.any(writeFileSync.argsForCall, function (callArgs) {
+                    return callArgs[0] === mainProjectProps && callArgs[1].indexOf('android.library.reference.3=LibraryPath\n') > -1;
+                })).toBe(true, 'Reference to library not added');
+                expect(_.any(writeFileSync.argsForCall, function (callArgs) {
+                    return callArgs[0] === subProjectProps && callArgs[1].indexOf('target=android-19') > -1;
+                })).toBe(true, 'target SDK version not copied to library');
+                expect(exec).toHaveBeenCalledWith('android update lib-project --path ' + sub_dir);
             });
         });
     });
