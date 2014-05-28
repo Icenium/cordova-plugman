@@ -1,5 +1,6 @@
 var platforms = require("../platforms"),
     Q = require('q'),
+    _ = require('underscore'),
     fs = require('fs');
 
 function ActionStack() {
