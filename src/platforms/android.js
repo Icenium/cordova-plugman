@@ -89,24 +89,38 @@ module.exports = {
             if (!src) throw new Error('src not specified in framework element');
 
             var parent = source_el.attrib.parent;
-            var parentDir = parent ? path.resolve(project_dir, parent) : project_dir;
+            var parentDir = parent ? path.resolve(project_dir, module.exports.getCustomSubprojectRelativeDir(plugin_id, parent)) : project_dir;
             var subDir;
             if (custom) {
-                subDir = path.resolve(project_dir, src);
+                var subRelativeDir = module.exports.getCustomSubprojectRelativeDir(plugin_id, src);
+                common.copyFile(plugin_dir, src, project_dir, subRelativeDir);
+                subDir = path.resolve(project_dir, subRelativeDir);
             } else {
-                var localProperties = properties_parser.createEditor(path.resolve(project_dir, "local.properties"));
-                subDir = path.resolve(localProperties.get("sdk.dir"), src);
+                var sdk_dir = module.exports.getProjectSdkDir(project_dir);
+                subDir = path.resolve(sdk_dir, src);
             }
             var projectConfig = module.exports.parseProjectFile(project_dir);
             projectConfig.addSubProject(parentDir, subDir);
         },
         uninstall:function(source_el, project_dir, plugin_id) {
             var src = source_el.attrib.src;
+            var custom = source_el.attrib.custom;
             if (!src) throw new Error('src not specified in framework element');
 
             var parent = source_el.attrib.parent;
             var parentDir = parent ? path.resolve(project_dir, parent) : project_dir;
-            var subDir = path.resolve(project_dir, src);
+            var subRelativeDir = path.join(plugin_id, path.basename(src));
+            var subDir;
+
+            if (custom) {
+                var subRelativeDir = module.exports.getCustomSubprojectRelativeDir(plugin_id, src);
+                common.removeFile(project_dir, subRelativeDir);
+                subDir = path.resolve(project_dir, subRelativeDir);
+            } else {
+                var sdk_dir = module.exports.getProjectSdkDir(project_dir);
+                subDir = path.resolve(sdk_dir, src);
+            }
+
             var projectConfig = module.exports.parseProjectFile(project_dir);
             projectConfig.removeSubProject(parentDir, subDir);
         }
@@ -168,6 +182,14 @@ module.exports = {
     getRelativeLibraryPath: function (parentDir, subDir) {
         var libraryPath = path.relative(parentDir, subDir);
         return (path.sep == '\\') ? libraryPath.replace(/\\/g, '/') : libraryPath;
+    },
+    getProjectSdkDir: function (project_dir) {
+        var localProperties = properties_parser.createEditor(path.resolve(project_dir, "local.properties"));
+        return localProperties.get("sdk.dir");
+    },
+    getCustomSubprojectRelativeDir: function (plugin_id, src) {
+        var subRelativeDir = path.join(plugin_id, path.basename(src));
+        return subRelativeDir;
     }
 };
 
