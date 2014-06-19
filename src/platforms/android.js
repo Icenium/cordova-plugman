@@ -160,7 +160,7 @@ module.exports = {
 
                     for (var sub_dir in this.subProjectDirs)
                     {
-                        shell.exec("android update lib-project --path " + sub_dir);
+                        shell.exec('android update lib-project --path "' + sub_dir + '"');
                     }
                     this._dirty = false;
                 },
