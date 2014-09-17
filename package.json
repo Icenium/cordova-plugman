@@ -23,7 +23,7 @@
     "xcode": "0.6.6",
     "plist-with-patches": "0.5.x",
     "bplist-parser": "0.0.x",
-    "shelljs": "0.1.x",
+    "shelljs": "0.3.x",
     "underscore":"1.4.4",
     "dep-graph":"1.1.0",
     "semver": "2.0.x",

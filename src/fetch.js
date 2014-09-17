@@ -154,6 +154,7 @@ function copyPlugin(plugin_dir, plugins_dir, link) {
     shell.rm('-rf', dest);
     if (link) {
         require('../plugman').emit('verbose', 'Linking plugin "' + plugin_dir + '" => "' + dest + '"');
+		shell.mkdir('-p', path.dirname(dest));
         fs.symlinkSync(plugin_dir, dest, 'dir');
     } else {
         shell.mkdir('-p', dest);

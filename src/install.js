@@ -56,7 +56,7 @@ function possiblyFetch(id, plugins_dir, options) {
         return Q(plugin_dir);
     }
     var opts = {
-        link: false,
+		link: options.link,
         subdir: options.subdir,
         git_ref: options.git_ref,
         client: 'plugman',
