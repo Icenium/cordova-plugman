@@ -32,7 +32,7 @@
     "rc": "0.3.0",
     "tar": "0.1.x",
     "request": "2.22.0",
-    "properties-parser": "git://github.com/mbektchiev/node-properties-parser#cordova-lib"
+    "properties-parser": "~0.2.3"
   },
   "devDependencies": {
     "jasmine-node": "1.7.0",
