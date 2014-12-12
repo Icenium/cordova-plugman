@@ -43,27 +43,27 @@ module.exports = function fetchPlugin(plugin_src, plugins_dir, options) {
     // If it looks like a network URL, git clone it.
     if ( uri.protocol && uri.protocol != 'file:' && uri.protocol != 'c:' && !plugin_src.match(/^\w+:\\/)) {
         require('../plugman').emit('log', 'Fetching plugin "' + plugin_src + '" via git clone');
-        if (options.link) {
-            return Q.reject(new Error('--link is not supported for git URLs'));
-        } else {
-            var data = {
-                source: {
-                    type: 'git',
-                    url:  plugin_src,
-                    subdir: options.subdir,
-                    ref: options.git_ref
-                }
-            };
+		if (options.link) {
+			events.emit('log', '--link is not supported for git URLs and will be ignored');
+		}
 
-            return plugins.clonePluginGitRepo(plugin_src, plugins_dir, options.subdir, options.git_ref)
-            .then(function(dir) {
-                return checkID(options.expected_id, dir);
-            })
-            .then(function(dir) {
-                metadata.save_fetch_metadata(dir, data);
-                return dir;
-            });
-        }
+		var data = {
+			source: {
+				type: 'git',
+				url:  plugin_src,
+				subdir: options.subdir,
+				ref: options.git_ref
+			}
+		};
+
+		return plugins.clonePluginGitRepo(plugin_src, plugins_dir, options.subdir, options.git_ref)
+		.then(function(dir) {
+			return checkID(options.expected_id, dir);
+		})
+		.then(function(dir) {
+			metadata.save_fetch_metadata(dir, data);
+			return dir;
+		});
     } else {
         // If it's not a network URL, it's either a local path or a plugin ID.
 
