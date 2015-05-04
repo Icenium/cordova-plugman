@@ -25,6 +25,7 @@ var path = require('path')
     , nopt = require('nopt')
     , plugins = require('./src/util/plugins')
     , Q = require('q')
+    , fs = require('fs')
     , plugman = require('./plugman');
 
 var known_opts = { 'platform' : [ 'ios', 'android', 'amazon-fireos', 'blackberry10', 'wp7', 'wp8' , 'windows8', 'firefoxos' ]
@@ -44,6 +45,9 @@ var known_opts = { 'platform' : [ 'ios', 'android', 'amazon-fireos', 'blackberry
 var cli_opts = nopt(known_opts, shortHands);
 
 var cmd = cli_opts.argv.remain.shift();
+
+cli_opts.project = convertToRealPathSafe(cli_opts.project);
+cli_opts.plugins_dir = convertToRealPathSafe(cli_opts.plugins_dir);
 
 // Without these arguments, the commands will fail and print the usage anyway.
 if (cli_opts.plugins_dir || cli_opts.project) {
@@ -85,4 +89,13 @@ if (cli_opts.version) {
     }
 } else {
     console.log(plugman.help());
+}
+
+/// Resolve any symlinks in order to avoid relative path issues. See https://issues.apache.org/jira/browse/CB-8757
+function convertToRealPathSafe(path) {
+    if (path && fs.existsSync(path)) {
+        return fs.realpathSync(path);
+    }
+
+    return path;
 }
