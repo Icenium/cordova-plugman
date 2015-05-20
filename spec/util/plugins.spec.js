@@ -30,14 +30,15 @@ var http   = require('http'),
 describe('plugins utility module', function(){
     describe('clonePluginGitRepo', function(){
         var fake_id = 'VillageDrunkard';
-        var execSpy, cp_spy, xml_spy, done;
+        var execSpy, mv_spy, rm_spy, xml_spy, done;
         beforeEach(function() {
             execSpy = spyOn(child_process, 'exec').andCallFake(function(cmd, opts, cb) {
                 if (!cb) cb = opts;
                 cb(null, 'git output');
             });
             spyOn(shell, 'which').andReturn(true);
-            cp_spy = spyOn(shell, 'cp');
+            mv_spy = spyOn(shell, 'mv');
+            rm_spy = spyOn(shell, 'rm');
             xml_spy = spyOn(xml_helpers, 'parseElementtreeSync').andReturn({
                 getroot:function() {
                     return {
@@ -73,9 +74,12 @@ describe('plugins utility module', function(){
             });
             waitsFor(function() { return done; }, 'promise never resolved', 500);
             runs(function() {
-                var expected_subdir_cp_path = new RegExp(fake_subdir + '[\\\\\\/]\\*$', 'gi');
-                expect(cp_spy.mostRecentCall.args[1]).toMatch(expected_subdir_cp_path);
-                expect(cp_spy.mostRecentCall.args[2]).toEqual(path.join(temp, fake_id));
+                var expected_subdir_mv_path = new RegExp('^(.*' + fake_subdir + ')[\\\\\\/]\\*$', 'gi');
+                var actual_subdir_mv_path = mv_spy.mostRecentCall.args[0];
+                expect(mv_spy.mostRecentCall.args[0]).toMatch(expected_subdir_mv_path);
+                expect(mv_spy.mostRecentCall.args[1]).toEqual(path.join(temp, fake_id));
+                var tempPluginDir = expected_subdir_mv_path.exec(actual_subdir_mv_path)[1];
+                expect(rm_spy.mostRecentCall.args[1]).toEqual(tempPluginDir);
             });
         });
     });
