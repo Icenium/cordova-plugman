@@ -4,8 +4,8 @@
   "dependencies": {
     "cordova-lib": {
       "version": "5.1.1",
-      "from": "git://github.com/Icenium/cordova-lib.git#311c05c5b8e70d67183be8a0b9da71243d71c1a5",
-      "resolved": "git://github.com/Icenium/cordova-lib.git#311c05c5b8e70d67183be8a0b9da71243d71c1a5",
+      "from": "git+https://github.com/Icenium/cordova-lib.git#c0b2d15aebfa7f2fa6aae815919690a64e8a5857",
+      "resolved": "git+https://github.com/Icenium/cordova-lib.git#c0b2d15aebfa7f2fa6aae815919690a64e8a5857",
       "dependencies": {
         "bplist-parser": {
           "version": "0.0.6",
