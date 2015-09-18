@@ -17,7 +17,7 @@
   },
   "engineStrict":true,
   "dependencies": {
-    "cordova-lib": "git+https://github.com/Icenium/cordova-lib#c0b2d15aebfa7f2fa6aae815919690a64e8a5857",
+    "cordova-lib": "git+https://github.com/Icenium/cordova-lib#0b6205b0296584598d33f8142156b54ceaf0aa39",
     "nopt": "1.0.9",
     "q": "1.0.1"
   },
