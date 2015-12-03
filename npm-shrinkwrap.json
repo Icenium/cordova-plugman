@@ -4,8 +4,8 @@
   "dependencies": {
     "cordova-lib": {
       "version": "5.3.2",
-      "from": "git+https://github.com/Icenium/cordova-lib.git#a58c028e4388b75df8175df686ee36e88d3a0898",
-      "resolved": "git+https://github.com/Icenium/cordova-lib.git#a58c028e4388b75df8175df686ee36e88d3a0898",
+      "from": "git+https://github.com/Icenium/cordova-lib.git#79889a19a1d2e8d3f48ba93b4bccc404778a2ff1",
+      "resolved": "git+https://github.com/Icenium/cordova-lib.git#79889a19a1d2e8d3f48ba93b4bccc404778a2ff1",
       "dependencies": {
         "aliasify": {
           "version": "1.7.2",
