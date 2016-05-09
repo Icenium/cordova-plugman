@@ -4,8 +4,8 @@
   "dependencies": {
     "cordova-lib": {
       "version": "6.1.1",
-      "from": "https://github.com/Icenium/cordova-lib/tarball/403a8a63cc1dc63f9626f984da3f25d677242903",
-      "resolved": "https://github.com/Icenium/cordova-lib/tarball/403a8a63cc1dc63f9626f984da3f25d677242903",
+      "from": "https://github.com/Icenium/cordova-lib/tarball/065e5c0a96509eb979da1c3422fc99cbe7a05987",
+      "resolved": "https://github.com/Icenium/cordova-lib/tarball/065e5c0a96509eb979da1c3422fc99cbe7a05987",
       "dependencies": {
         "aliasify": {
           "version": "1.9.0",
@@ -59,9 +59,9 @@
           "resolved": "https://registry.npmjs.org/cordova-app-hello-world/-/cordova-app-hello-world-3.10.0.tgz"
         },
         "cordova-common": {
-          "version": "1.1.1",
-          "from": "cordova-common@>=1.1.0 <1.2.0",
-          "resolved": "https://registry.npmjs.org/cordova-common/-/cordova-common-1.1.1.tgz",
+          "version": "1.2.0-dev",
+          "from": "https://github.com/Icenium/cordova-lib/tarball/27eeecb64d60c935b0536ed7ea022ef65482510b",
+          "resolved": "https://github.com/Icenium/cordova-lib/tarball/27eeecb64d60c935b0536ed7ea022ef65482510b",
           "dependencies": {
             "ansi": {
               "version": "0.3.1",
