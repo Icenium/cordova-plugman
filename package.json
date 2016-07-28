@@ -17,7 +17,7 @@
   },
   "engineStrict":true,
   "dependencies": {
-    "cordova-lib": "https://github.com/Icenium/cordova-lib/tarball/2b82c4cf2425f38eb9acb48eeb0b8fd287e1d8d9",
+    "cordova-lib": "https://github.com/Icenium/cordova-lib/tarball/e8a431e65dcac80b9c58bb63da8569cd111666ef",
     "nopt": "1.0.9",
     "q": "1.0.1"
   },
