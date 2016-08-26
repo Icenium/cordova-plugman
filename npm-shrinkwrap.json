@@ -4,8 +4,8 @@
   "dependencies": {
     "cordova-lib": {
       "version": "6.1.1",
-      "from": "https://github.com/Icenium/cordova-lib/tarball/065e5c0a96509eb979da1c3422fc99cbe7a05987",
-      "resolved": "https://github.com/Icenium/cordova-lib/tarball/065e5c0a96509eb979da1c3422fc99cbe7a05987",
+      "from": "https://github.com/Icenium/cordova-lib/tarball/04084601a38b901bdb9fb38ebf11a89a15c68ccb",
+      "resolved": "https://github.com/Icenium/cordova-lib/tarball/04084601a38b901bdb9fb38ebf11a89a15c68ccb",
       "dependencies": {
         "aliasify": {
           "version": "1.9.0",
