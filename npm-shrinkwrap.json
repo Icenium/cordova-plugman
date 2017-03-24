@@ -461,8 +461,8 @@
     },
     "cordova-lib": {
       "version": "6.5.0",
-      "from": "https://github.com/Icenium/cordova-lib/tarball/b2225dbef026d7b1d2116aa849006ef8665d40c4",
-      "resolved": "https://github.com/Icenium/cordova-lib/tarball/b2225dbef026d7b1d2116aa849006ef8665d40c4",
+      "from": "https://github.com/Icenium/cordova-lib/tarball/fa72e409d536f57905b2a7be538e27492c059007",
+      "resolved": "https://github.com/Icenium/cordova-lib/tarball/fa72e409d536f57905b2a7be538e27492c059007",
       "dependencies": {
         "nopt": {
           "version": "3.0.6",
